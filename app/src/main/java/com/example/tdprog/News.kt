@@ -1,5 +1,7 @@
 package com.example.tdprog
 
 data class News(
-    val title: String
+    val Id: String,
+    val title: String,
+    val description: String
 )
