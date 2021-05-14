@@ -33,13 +33,18 @@ class PokemonListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.pokemon_recyclerview)
-        recyclerView.adapter = adapter
 
-        val pokeList:ArrayList<String> = arrayListOf<String>().apply {
-            add("Pikachu")
-            add("Bulbizarre")
-            add("Carapuce")
-            add("Salamèche")
+        recyclerView.apply {
+            layoutManager = this@PokemonListFragment.layoutManager
+            adapter = this@PokemonListFragment.adapter
+
+        }
+
+        val pokeList:ArrayList<Pokemon> = arrayListOf<Pokemon>().apply {
+            add(Pokemon("Pikachu"))
+            add(Pokemon("Bulbizarre"))
+            add(Pokemon("Carapuce"))
+            add(Pokemon("Salamèche"))
         }
 
         adapter.updateList(pokeList)
