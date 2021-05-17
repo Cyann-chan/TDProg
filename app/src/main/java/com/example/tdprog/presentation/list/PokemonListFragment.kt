@@ -1,15 +1,22 @@
 package com.example.tdprog.presentation.list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tdprog.R
+import com.example.tdprog.presentation.list.api.PokeApi
+import com.example.tdprog.presentation.list.api.PokemonListResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -18,7 +25,8 @@ class PokemonListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
-    private val adapter = PokemonAdapter(listOf())
+    private val adapter = PokemonAdapter(listOf(), ::onClickedPokemon)
+
     private val layoutManager = LinearLayoutManager(context)
 
     override fun onCreateView(
@@ -40,13 +48,21 @@ class PokemonListFragment : Fragment() {
 
         }
 
-        val pokeList:ArrayList<Pokemon> = arrayListOf<Pokemon>().apply {
-            add(Pokemon("Pikachu"))
-            add(Pokemon("Bulbizarre"))
-            add(Pokemon("Carapuce"))
-            add(Pokemon("Salamèche"))
-        }
+        Singletons.pokeApi.getPokemonList().enqueue(object : Callback<PokemonListResponse> {
+            override fun onFailure(call: Call<PokemonListResponse>, t: Throwable) {
+            }
 
-        adapter.updateList(pokeList)
+            override fun onResponse(call: Call<PokemonListResponse>, response: Response<PokemonListResponse>) {
+                if(response.isSuccessful && response.body() != null){
+                   val pokemonResponse : PokemonListResponse = response.body()!!
+                    adapter.updateList(pokemonResponse.results)
+                }
+            }
+        })
+
+
+    }
+    private fun onClickedPokemon(pokemon: Pokemon) {
+        findNavController().navigate(R.id.navigateToPokemonDetailFragment)
     }
 }
