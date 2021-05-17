@@ -38,7 +38,8 @@ class PokemonDetailFragment : Fragment() {
     }
 
     private fun callApi() {
-        Singletons.pokeApi.getPokemonDetail("1").enqueue(object : Callback<PokemonDetailResponse>{
+        val id: Int? = arguments?.getInt("pokemonId") ?: -1
+        Singletons.pokeApi.getPokemonDetail(id).enqueue(object : Callback<PokemonDetailResponse>{
             override fun onFailure(call: Call<PokemonDetailResponse>, t: Throwable) {
 
             }
