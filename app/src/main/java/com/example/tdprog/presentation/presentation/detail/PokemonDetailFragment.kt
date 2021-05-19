@@ -1,16 +1,14 @@
-package com.example.tdprog.presentation.list.detail
+package com.example.tdprog.presentation.presentation.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
 import com.example.tdprog.R
-import com.example.tdprog.presentation.list.Singletons
-import com.example.tdprog.presentation.list.api.PokemonDetailResponse
+import com.example.tdprog.presentation.presentation.Singletons
+import com.example.tdprog.presentation.presentation.api.PokemonDetailResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

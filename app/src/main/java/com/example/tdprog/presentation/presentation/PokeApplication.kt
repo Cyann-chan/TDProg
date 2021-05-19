@@ -1,4 +1,4 @@
-package com.example.tdprog.presentation.list
+package com.example.tdprog.presentation.presentation
 
 import android.app.Application
 import android.content.Context

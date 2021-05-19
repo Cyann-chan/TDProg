@@ -1,4 +1,4 @@
-package com.example.tdprog.presentation.list.api
+package com.example.tdprog.presentation.presentation.api
 
 import retrofit2.Call
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.example.tdprog.presentation.list
+package com.example.tdprog.presentation.presentation.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,17 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tdprog.R
-import com.example.tdprog.presentation.list.api.PokeApi
-import com.example.tdprog.presentation.list.api.PokemonListResponse
+import com.example.tdprog.presentation.presentation.Singletons
+import com.example.tdprog.presentation.presentation.api.PokemonListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 /**
@@ -27,6 +27,8 @@ class PokemonListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
 
     private val adapter = PokemonAdapter(listOf(), ::onClickedPokemon)
+
+    private val viewModel: PokemonListViewModel by viewModels()
 
     private val layoutManager = LinearLayoutManager(context)
 
@@ -49,18 +51,9 @@ class PokemonListFragment : Fragment() {
 
         }
 
-        Singletons.pokeApi.getPokemonList().enqueue(object : Callback<PokemonListResponse> {
-            override fun onFailure(call: Call<PokemonListResponse>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<PokemonListResponse>, response: Response<PokemonListResponse>) {
-                if(response.isSuccessful && response.body() != null){
-                   val pokemonResponse : PokemonListResponse = response.body()!!
-                    adapter.updateList(pokemonResponse.results)
-                }
-            }
+        viewModel.pokeList.observe(viewLifecycleOwner, Observer {list ->
+            adapter.updateList(list)
         })
-
 
     }
     private fun onClickedPokemon(id: Int) {

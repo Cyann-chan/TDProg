@@ -1,8 +1,7 @@
-package com.example.tdprog.presentation.list
+package com.example.tdprog.presentation.presentation
 
-import android.content.Context
-import com.example.tdprog.presentation.list.PokeApplication.Companion.context
-import com.example.tdprog.presentation.list.api.PokeApi
+import com.example.tdprog.presentation.presentation.PokeApplication.Companion.context
+import com.example.tdprog.presentation.presentation.api.PokeApi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

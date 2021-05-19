@@ -1,4 +1,4 @@
-package com.example.tdprog.presentation.list.api
+package com.example.tdprog.presentation.presentation.api
 
 data class PokemonDetailResponse(
         val name:String,
